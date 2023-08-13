@@ -1,0 +1,4 @@
+name: Shield
+version: '${version}'
+main: co.aegisrpg.Shield
+api-version: 1.20
