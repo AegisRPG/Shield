@@ -1,4 +1,4 @@
-# Athena
+# Shield
 Aegis' custom java plugin
 
 # Building
