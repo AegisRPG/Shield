@@ -9,10 +9,11 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://sonatype.projecteden.gg/repository/maven-public/") }
+    maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") }
     maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
     maven { url = uri("https://oss.sonatype.org/content/groups/public/") }
     maven { url = uri("https://maven.enginehub.org/repo/") }
-    maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") }
     maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
     maven { url = uri("https://maven.citizensnpcs.co/repo") }
     maven { url = uri("https://repo.codemc.org/repository/maven-public/") }
@@ -22,11 +23,16 @@ repositories {
     maven { url = uri("https://mvnrepository.com/artifact/org.apache.commons/commons-collections4") }
     maven { url = uri("https://jitpack.io") }
     maven { url = uri("https://repo.codemc.io/repository/maven-public/") }
+    maven { url = uri("https://sonatype.projecteden.gg/repository/maven-public/") }
     maven { url = uri("https://github.com/deanveloper/SkullCreator/raw/mvn-repo/") }
+    maven {
+        url = uri("https://repo.inventivetalent.org/content/groups/public/")
+        content { includeGroup("org.inventivetalent") }
+    }
 }
 
 dependencies {
-    paperDevBundle("1.19.4-R0.1-SNAPSHOT")
+    paperweightDevBundle("gg.projecteden.parchment", "1.19.4-R0.1-SNAPSHOT")
     implementation("net.kyori:adventure-platform-bukkit:4.3.0")
     implementation("net.kyori:adventure-api:4.13.0")
     implementation("org.projectlombok:lombok:1.18.26")
@@ -59,14 +65,7 @@ dependencies {
 }
 
 group = "co.AegisRPG"
-description = "Shield"
 version = "1.0" // keep in sync with plugin.yml
-
-publishing {
-    publications.create<MavenPublication>("maven") {
-        from(components["java"])
-    }
-}
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
@@ -76,22 +75,22 @@ tasks {
     assemble {
         dependsOn(reobfJar)
     }
+
     compileJava {
         options.encoding = Charsets.UTF_8.name()
         options.release.set(17)
         options.compilerArgs.add("-parameters")
+        options.compilerArgs.add("-Xmaxerrs")
+        options.compilerArgs.add("1000")
     }
 
-    javadoc {
-        options.encoding = Charsets.UTF_8.name()
-    }
+    javadoc { options.encoding = Charsets.UTF_8.name() }
 
     processResources {
         filteringCharset = Charsets.UTF_8.name()
+
+        filesMatching("plugin.yml") {
+            expand("version" to project.version)
+        }
     }
-
-}
-
-tasks.withType<JavaCompile>() {
-    options.encoding = "UTF-8"
 }
