@@ -1,5 +1,5 @@
 # Shield
-Aegis' custom java plugin
+AegisRPG's custom java plugin
 
 # Building
 Maven is used to manage our dependencies and build instructions. Clone the project, and then run `mvn clean package` in
