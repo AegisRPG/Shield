@@ -1,4 +1,4 @@
-package co.aegisrpg.utils.api.exceptions;
+package co.aegisrpg.api.common.exceptions;
 
 import lombok.NoArgsConstructor;
 

@@ -1,6 +1,6 @@
-package co.aegisrpg.utils.api.utils;
+package co.aegisrpg.api.common.utils;
 
-import co.aegisrpg.utils.api.ShieldAPI;
+import co.aegisrpg.api.common.ShieldAPI;
 import org.jetbrains.annotations.Contract;
 
 import java.util.UUID;

@@ -1,6 +1,6 @@
-package co.aegisrpg.utils.api.utils;
+package co.aegisrpg.api.common.utils;
 
-import co.aegisrpg.utils.api.ShieldAPI;
+import co.aegisrpg.api.common.ShieldAPI;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
 import org.jetbrains.annotations.NotNull;

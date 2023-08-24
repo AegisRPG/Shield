@@ -1,4 +1,4 @@
-package co.aegisrpg.utils.api.annotations;
+package co.aegisrpg.api.common.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

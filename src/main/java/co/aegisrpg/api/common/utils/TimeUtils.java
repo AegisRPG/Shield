@@ -1,6 +1,6 @@
-package co.aegisrpg.utils.api.utils;
+package co.aegisrpg.api.common.utils;
 
-import co.aegisrpg.utils.api.exceptions.ShieldException;
+import co.aegisrpg.api.common.exceptions.ShieldException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static co.aegisrpg.utils.api.utils.Nullables.isNullOrEmpty;
+import static co.aegisrpg.api.common.utils.Nullables.isNullOrEmpty;
 
 public class TimeUtils {
 

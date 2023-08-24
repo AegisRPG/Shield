@@ -1,6 +1,6 @@
-package co.aegisrpg.utils.api.exceptions.postconfigured;
+package co.aegisrpg.api.common.exceptions.postconfigured;
 
-import co.aegisrpg.utils.api.exceptions.ShieldException;
+import co.aegisrpg.api.common.exceptions.ShieldException;
 
 public class PlayerNotFoundException extends ShieldException {
 

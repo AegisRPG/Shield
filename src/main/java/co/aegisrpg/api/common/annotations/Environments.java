@@ -1,4 +1,6 @@
-package co.aegisrpg.utils.api.annotations;
+package co.aegisrpg.api.common.annotations;
+
+import co.aegisrpg.api.common.utils.Env;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,5 +9,6 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Sync {
+public @interface Environments {
+    Env[] value();
 }

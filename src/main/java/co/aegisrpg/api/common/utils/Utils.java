@@ -1,7 +1,7 @@
-package co.aegisrpg.utils.api.utils;
+package co.aegisrpg.api.common.utils;
 
-import co.aegisrpg.utils.api.annotations.Disabled;
-import co.aegisrpg.utils.api.annotations.Environments;
+import co.aegisrpg.api.common.annotations.Disabled;
+import co.aegisrpg.api.common.annotations.Environments;
 import io.github.classgraph.AnnotationEnumValue;
 import io.github.classgraph.AnnotationInfo;
 import io.github.classgraph.ClassInfo;

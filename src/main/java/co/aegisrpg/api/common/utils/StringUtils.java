@@ -1,7 +1,7 @@
-package co.aegisrpg.utils.api.utils;
+package co.aegisrpg.api.common.utils;
 
-import co.aegisrpg.utils.api.ShieldAPI;
-import co.aegisrpg.utils.api.exceptions.ShieldException;
+import co.aegisrpg.api.common.ShieldAPI;
+import co.aegisrpg.api.common.exceptions.ShieldException;
 import com.google.gson.Gson;
 import lombok.Data;
 import lombok.Getter;
@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static co.aegisrpg.utils.api.utils.Nullables.isNullOrEmpty;
+import static co.aegisrpg.api.common.utils.Nullables.isNullOrEmpty;
 
 public class StringUtils {
 

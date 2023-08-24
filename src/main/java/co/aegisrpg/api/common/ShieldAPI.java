@@ -1,6 +1,6 @@
-package co.aegisrpg.utils.api;
+package co.aegisrpg.api.common;
 
-import co.aegisrpg.utils.api.utils.Env;
+import co.aegisrpg.api.common.utils.Env;
 import com.google.gson.GsonBuilder;
 
 import java.util.Optional;

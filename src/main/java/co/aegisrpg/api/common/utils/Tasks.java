@@ -1,4 +1,4 @@
-package co.aegisrpg.utils.api.utils;
+package co.aegisrpg.api.common.utils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -9,7 +9,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import co.aegisrpg.utils.api.utils.TimeUtils.MillisTime;
+import co.aegisrpg.api.common.utils.TimeUtils.MillisTime;
 
 public class Tasks {
     private static final AtomicInteger nextTaskId = new AtomicInteger(1);

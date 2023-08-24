@@ -1,4 +1,4 @@
-package co.aegisrpg.utils.api.utils;
+package co.aegisrpg.api.common.utils;
 
 import lombok.Data;
 

@@ -1,6 +1,8 @@
-package co.aegisrpg;
+package co.aegisrpg.api;
 
-import co.aegisrpg.utils.api.utils.Env;
+import co.aegisrpg.Shield;
+import co.aegisrpg.ShieldDatabaseAPI;
+import co.aegisrpg.api.common.utils.Env;
 import com.google.gson.GsonBuilder;
 import dev.morphia.converters.TypeConverter;
 
