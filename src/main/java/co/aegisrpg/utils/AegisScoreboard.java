@@ -1,6 +1,7 @@
 package co.aegisrpg.utils;
 
 
+import co.aegisrpg.Shield;
 import me.lucko.helper.Services;
 import me.lucko.helper.scoreboard.PacketScoreboardProvider;
 import me.lucko.helper.scoreboard.Scoreboard;
@@ -12,33 +13,35 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import java.lang.reflect.Field;
 import java.util.*;
 
+import static co.aegisrpg.api.common.utils.StringUtils.left;
+
 public class AegisScoreboard {
     private static final ScoreboardManager manager = Shield.getInstance().getServer().getScoreboardManager();
     private static final Scoreboard scoreboard = Services.load(PacketScoreboardProvider.class).getScoreboard();
     private final ScoreboardObjective objective;
     private final Map<String, Integer> lines = new HashMap<>();
 
-    public EdenScoreboard(String title) {
+    public AegisScoreboard(String title) {
         this(title, title, Collections.emptyList());
     }
 
-    public EdenScoreboard(String title, Player player) {
+    public AegisScoreboard(String title, Player player) {
         this(title, title, Collections.singletonList(player));
     }
 
-    public EdenScoreboard(String title, Collection<? extends Player> players) {
+    public AegisScoreboard(String title, Collection<? extends Player> players) {
         this(title, title, players);
     }
 
-    public EdenScoreboard(String id, String title) {
+    public AegisScoreboard(String id, String title) {
         this(id, title, Collections.emptyList());
     }
 
-    public EdenScoreboard(String id, String title, Player player) {
+    public AegisScoreboard(String id, String title, Player player) {
         this(id, title, Collections.singletonList(player));
     }
 
-    public EdenScoreboard(String id, String title, Collection<? extends Player> players) {
+    public AegisScoreboard(String id, String title, Collection<? extends Player> players) {
         try { scoreboard.removeObjective(left(id, 16)); } catch (Exception ignore) {}
         objective = scoreboard.createObjective(left(id, 16), colorize(title), DisplaySlot.SIDEBAR, false);
         for (Player player : players)

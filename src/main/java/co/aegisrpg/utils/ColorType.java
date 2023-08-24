@@ -1,11 +1,9 @@
 package co.aegisrpg.utils;
 
-import gg.projecteden.nexus.features.customblocks.models.CustomBlock;
-import gg.projecteden.nexus.features.customblocks.models.CustomBlockTag;
-import gg.projecteden.nexus.framework.exceptions.postconfigured.InvalidInputException;
-import gg.projecteden.nexus.framework.interfaces.Colored;
-import gg.projecteden.nexus.framework.interfaces.IsColored;
-import gg.projecteden.nexus.utils.GlowUtils.GlowColor;
+import co.aegisrpg.api.common.utils.RandomUtils;
+import co.aegisrpg.api.common.utils.StringUtils;
+import co.aegisrpg.utils.GlowUtils.GlowColor;
+import com.gmail.nossr50.datatypes.mods.CustomBlock;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.SneakyThrows;

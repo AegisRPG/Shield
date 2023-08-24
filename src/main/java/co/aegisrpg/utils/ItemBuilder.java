@@ -43,7 +43,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static co.aegisrpg.utils.api.utils.Nullables.isNullOrEmpty;
+import static co.aegisrpg.api.common.utils.Nullables.isNullOrEmpty;
 
 public class ItemBuilder implements Cloneable, Supplier<ItemStack> {
     private ItemStack itemStack;

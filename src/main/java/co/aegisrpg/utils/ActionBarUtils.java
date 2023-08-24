@@ -1,6 +1,6 @@
 package co.aegisrpg.utils;
 
-import co.aegisrpg.utils.api.utils.Tasks;
+import co.aegisrpg.api.common.utils.Tasks;
 import gg.projecteden.parchment.HasPlayer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
