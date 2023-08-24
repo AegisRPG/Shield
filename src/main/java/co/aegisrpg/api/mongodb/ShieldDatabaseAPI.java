@@ -8,7 +8,7 @@ import java.util.Collections;
 
 import static co.aegisrpg.api.common.utils.ReflectionUtils.subTypesOf;
 
-public class ShieldDatabaseAPI extends ShieldAPI {
+public abstract class ShieldDatabaseAPI extends ShieldAPI {
     @Override
     public void shutdown() {
         MongoConnector.shutdown();

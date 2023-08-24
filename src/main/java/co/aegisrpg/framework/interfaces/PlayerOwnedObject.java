@@ -1,17 +1,11 @@
 package co.aegisrpg.framework.interfaces;
 
+import co.aegisrpg.Shield;
+import co.aegisrpg.api.common.utils.Tasks;
+import co.aegisrpg.utils.AdventureUtils;
+import co.aegisrpg.utils.Distance;
+import co.aegisrpg.utils.JsonBuilder;
 import gg.projecteden.api.interfaces.HasUniqueId;
-import gg.projecteden.nexus.Nexus;
-import gg.projecteden.nexus.features.afk.AFK;
-import gg.projecteden.nexus.features.listeners.Tab.Presence;
-import gg.projecteden.nexus.framework.exceptions.postconfigured.PlayerNotOnlineException;
-import gg.projecteden.nexus.models.mail.Mailer.Mail;
-import gg.projecteden.nexus.models.nerd.Nerd;
-import gg.projecteden.nexus.models.nerd.Rank;
-import gg.projecteden.nexus.models.nickname.Nickname;
-import gg.projecteden.nexus.models.nickname.NicknameService;
-import gg.projecteden.nexus.utils.*;
-import gg.projecteden.nexus.utils.worldgroup.WorldGroup;
 import gg.projecteden.parchment.HasLocation;
 import gg.projecteden.parchment.OptionalLocation;
 import gg.projecteden.parchment.OptionalPlayerLike;
@@ -27,9 +21,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.UUID;
 
-import static gg.projecteden.api.common.utils.UUIDUtils.isUUID0;
-import static gg.projecteden.nexus.utils.Distance.distance;
-import static gg.projecteden.nexus.utils.Nullables.isNullOrEmpty;
+import static co.aegisrpg.api.common.utils.UUIDUtils.isUUID0;
+import static co.aegisrpg.utils.Distance.distance;
 
 /**
  * A mongo database object owned by a player
@@ -150,25 +143,25 @@ public interface PlayerOwnedObject extends co.aegisrpg.api.mongodb.interfaces.Pl
 	}
 
 	default void debug(String message) {
-		if (Nexus.isDebug())
+		if (Shield.isDebug())
 			sendMessage(message);
 	}
 
 	default void debug(ComponentLike message) {
-		if (Nexus.isDebug())
+		if (Shield.isDebug())
 			sendMessage(message);
 	}
 
 	default void sendMessage(String message) {
 		if (isUUID0(getUuid()))
-			Nexus.log(message);
+			Shield.log(message);
 		else
 			sendMessage(json(message));
 	}
 
 	default void sendOrMail(String message) {
 		if (isUUID0(getUuid())) {
-			Nexus.log(message);
+			Shield.log(message);
 			return;
 		}
 
@@ -180,7 +173,7 @@ public interface PlayerOwnedObject extends co.aegisrpg.api.mongodb.interfaces.Pl
 
 	default void sendMessage(UUID sender, ComponentLike component, MessageType type) {
 		if (isUUID0(getUuid()))
-			Nexus.log(AdventureUtils.asPlainText(component));
+			Shield.log(AdventureUtils.asPlainText(component));
 		else
 			// TODO - 1.19.2 Chat Validation Kick
 			// sendMessage(identityOf(sender), component, type);
@@ -189,7 +182,7 @@ public interface PlayerOwnedObject extends co.aegisrpg.api.mongodb.interfaces.Pl
 
 	default void sendMessage(UUID sender, ComponentLike component) {
 		if (isUUID0(getUuid()))
-			Nexus.log(AdventureUtils.asPlainText(component));
+			Shield.log(AdventureUtils.asPlainText(component));
 		else
 			// TODO - 1.19.2 Chat Validation Kick
 			// sendMessage(identityOf(sender), component);
@@ -203,7 +196,7 @@ public interface PlayerOwnedObject extends co.aegisrpg.api.mongodb.interfaces.Pl
 	default void sendMessage(int delay, ComponentLike component) {
 		Tasks.wait(delay, () -> {
 			if (isUUID0(getUuid()))
-				Nexus.log(AdventureUtils.asPlainText(component));
+				Shield.log(AdventureUtils.asPlainText(component));
 			else
 				sendMessage(component);
 		});
