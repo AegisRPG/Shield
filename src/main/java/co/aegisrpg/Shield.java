@@ -1,8 +1,9 @@
 package co.aegisrpg;
 
-import co.aegisrpg.utils.api.utils.Env;
-import co.aegisrpg.utils.api.utils.ReflectionUtils;
-import co.aegisrpg.utils.api.utils.Utils;
+import co.aegisrpg.api.API;
+import co.aegisrpg.api.common.utils.Env;
+import co.aegisrpg.api.common.utils.ReflectionUtils;
+import co.aegisrpg.api.common.utils.Utils;
 import lombok.Getter;
 import lombok.Setter;
 import me.arcaniax.hdb.api.HeadDatabaseAPI;

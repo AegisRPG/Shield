@@ -1,6 +1,6 @@
 package co.aegisrpg;
 
-import co.aegisrpg.utils.api.ShieldAPI;
+import co.aegisrpg.api.common.ShieldAPI;
 import dev.morphia.converters.TypeConverter;
 
 import java.util.Collection;
