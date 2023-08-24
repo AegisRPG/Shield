@@ -24,6 +24,8 @@ import java.util.*;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static co.aegisrpg.utils.StringUtils.colorize;
+
 public class JsonBuilder implements ComponentLike {
 
     @NonNull private Builder builder = Component.text();
