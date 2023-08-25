@@ -1,7 +1,7 @@
 package co.aegisrpg.framework.commands.models;
 
 import co.aegisrpg.Shield;
-import co.aegisrpg.api.common.exceptions.ShieldException;
+import co.aegisrpg.api.common.exceptions.AegisException;
 import co.aegisrpg.api.common.utils.Utils;
 import co.aegisrpg.framework.commands.models.annotations.Arg;
 import co.aegisrpg.framework.commands.models.annotations.Path;
@@ -284,7 +284,7 @@ class PathParser {
                 } else if (tabCompleter.getParameterCount() == 2)
                     results.addAll((List<String>) tabCompleter.invoke(tabCompleteCommand, realArg.toLowerCase(), contextArg));
                 else
-                    throw new ShieldException("Unknown converter parameters in " + tabCompleter.getName());
+                    throw new AegisException("Unknown converter parameters in " + tabCompleter.getName());
             } else if (type != null && type.isEnum())
                 results.addAll(command.tabCompleteEnum(realArg.toLowerCase(), (Class<? extends Enum<?>>) type));
 

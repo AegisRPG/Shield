@@ -1,6 +1,6 @@
 package co.aegisrpg.framework.commands.models.events;
 
-import co.aegisrpg.api.common.exceptions.ShieldException;
+import co.aegisrpg.api.common.exceptions.AegisException;
 import co.aegisrpg.utils.JsonBuilder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -51,7 +51,7 @@ public abstract class CommandEvent extends Event implements Cancellable {
         PlayerUtils.send(sender, component);
     }
 
-    public Player getPlayer() throws ShieldException {
+    public Player getPlayer() throws AegisException {
         if (!(sender instanceof Player player))
             throw new MustBeIngameException();
 

@@ -1,7 +1,7 @@
 package co.aegisrpg.framework.commands.models.events;
 
 import co.aegisrpg.Shield;
-import co.aegisrpg.api.common.exceptions.ShieldException;
+import co.aegisrpg.api.common.exceptions.AegisException;
 import co.aegisrpg.framework.commands.Commands;
 import co.aegisrpg.framework.commands.models.annotations.Description;
 import co.aegisrpg.framework.commands.models.annotations.Path;
@@ -57,12 +57,12 @@ public class CommandRunEvent extends CommandEvent {
             return;
         }
 
-        if (ex.getCause() != null && ex.getCause() instanceof ShieldException shieldException) {
+        if (ex.getCause() != null && ex.getCause() instanceof AegisException shieldException) {
             reply(new JsonBuilder(PREFIX + "&c").next(shieldException.getJson()));
             return;
         }
 
-        if (ex instanceof ShieldException shieldException) {
+        if (ex instanceof AegisException shieldException) {
             reply(new JsonBuilder(PREFIX + "&c").next(shieldException.getJson()));
             return;
         }
@@ -72,7 +72,7 @@ public class CommandRunEvent extends CommandEvent {
             return;
         }
 
-        if (ex instanceof ShieldException) {
+        if (ex instanceof AegisException) {
             reply(PREFIX + "&c" + ex.getMessage());
             return;
         }
