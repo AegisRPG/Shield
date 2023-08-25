@@ -1,7 +1,7 @@
 package co.aegisrpg.api.common.utils;
 
-import co.aegisrpg.api.common.ShieldAPI;
-import co.aegisrpg.api.common.exceptions.ShieldException;
+import co.aegisrpg.api.common.AegisAPI;
+import co.aegisrpg.api.common.exceptions.AegisException;
 import com.google.gson.Gson;
 import lombok.Data;
 import lombok.Getter;
@@ -83,7 +83,7 @@ public class StringUtils {
 
     public static String asOxfordList(List<String> items, String separator) {
         if (!separator.contains(", "))
-            throw new ShieldException("Separator must contain ', '");
+            throw new AegisException("Separator must contain ', '");
 
         String message = String.join(separator, items);
         int commaIndex = message.lastIndexOf(", ");
@@ -125,7 +125,7 @@ public class StringUtils {
         return true;
     }
 
-    private static final Gson prettyPrinter = ShieldAPI.get().getPrettyPrinter().create();
+    private static final Gson prettyPrinter = AegisAPI.get().getPrettyPrinter().create();
 
     public static String toPrettyString(Object object) {
         if (object == null) return null;
@@ -247,7 +247,7 @@ public class StringUtils {
         if (Long.class == type || Long.TYPE == type) return nf;
         if (Byte.class == type || Byte.TYPE == type) return nf;
         if (BigDecimal.class == type) return df;
-        throw new ShieldException("No formatter found for class " + type.getSimpleName());
+        throw new AegisException("No formatter found for class " + type.getSimpleName());
     }
 
     private static final String HASTEBIN = "https://paste.projecteden.gg/";
@@ -275,7 +275,7 @@ public class StringUtils {
                 return response.body().string();
             }
         } catch (Exception ex) {
-            throw new ShieldException("An error occurred while retrieving the paste data: " + ex.getMessage());
+            throw new AegisException("An error occurred while retrieving the paste data: " + ex.getMessage());
         }
     }
 

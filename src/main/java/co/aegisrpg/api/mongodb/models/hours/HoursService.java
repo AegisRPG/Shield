@@ -1,6 +1,6 @@
 package co.aegisrpg.api.mongodb.models.hours;
 
-import co.aegisrpg.api.common.exceptions.ShieldException;
+import co.aegisrpg.api.common.exceptions.AegisException;
 import co.aegisrpg.api.common.utils.Utils;
 import co.aegisrpg.api.mongodb.MongoPlayerService;
 import co.aegisrpg.api.mongodb.annotations.ObjectClass;
@@ -148,7 +148,7 @@ public class HoursService extends MongoPlayerService<Hours> {
             else
                 return HoursType.DAILY;
 
-        throw new ShieldException("Invalid leaderboard type. Options are: " + HoursType.valuesString());
+        throw new AegisException("Invalid leaderboard type. Options are: " + HoursType.valuesString());
     }
 
     public enum HoursType {
@@ -215,9 +215,9 @@ public class HoursService extends MongoPlayerService<Hours> {
                             int yearInput = Integer.parseInt(split[0]);
                             if (yearInput >= 2015)
                                 if (yearInput <= 2019)
-                                    throw new ShieldException("Years 2015-2019 are not supported");
+                                    throw new AegisException("Years 2015-2019 are not supported");
                                 else if (yearInput > now.getYear())
-                                    throw new ShieldException("Year &e" + yearInput + " &cis in the future");
+                                    throw new AegisException("Year &e" + yearInput + " &cis in the future");
                                 else
                                     year = yearInput;
                             else {
@@ -230,30 +230,30 @@ public class HoursService extends MongoPlayerService<Hours> {
                                     int monthInput = Integer.parseInt(split[1]);
                                     if (monthInput >= 1 && monthInput <= 12)
                                         if (YearMonth.of(year, monthInput).isAfter(YearMonth.now()))
-                                            throw new ShieldException("Month &e" + yearInput + "-" + monthInput + " &cis in the future");
+                                            throw new AegisException("Month &e" + yearInput + "-" + monthInput + " &cis in the future");
                                         else
                                             month = monthInput;
                                     else
-                                        throw new ShieldException("Invalid month &e" + monthInput);
+                                        throw new AegisException("Invalid month &e" + monthInput);
                                 } else
-                                    throw new ShieldException("Invalid month &e" + split[1]);
+                                    throw new AegisException("Invalid month &e" + split[1]);
 
                                 if (split.length >= 3) {
                                     if (split[2].length() > 0 && Utils.isInt(split[2])) {
                                         int dayInput = Integer.parseInt(split[2]);
                                         if (YearMonth.of(year, month).isValidDay(dayInput))
                                             if (LocalDate.of(year, month, dayInput).isAfter(now))
-                                                throw new ShieldException("Day &e" + year + "-" + month + "-" + dayInput + " &cis in the future");
+                                                throw new AegisException("Day &e" + year + "-" + month + "-" + dayInput + " &cis in the future");
                                             else
                                                 day = dayInput;
                                         else
-                                            throw new ShieldException("Invalid day of month &e" + dayInput);
+                                            throw new AegisException("Invalid day of month &e" + dayInput);
                                     } else
-                                        throw new ShieldException("Invalid day &e" + split[2]);
+                                        throw new AegisException("Invalid day &e" + split[2]);
                                 }
                             }
                         } else
-                            throw new ShieldException("Invalid year &e" + split[0]);
+                            throw new AegisException("Invalid year &e" + split[0]);
                     }
             }
 
@@ -262,13 +262,13 @@ public class HoursService extends MongoPlayerService<Hours> {
 
             if (year == 2020) {
                 if (month == -1)
-                    throw new ShieldException("Year 2020 is not supported");
+                    throw new AegisException("Year 2020 is not supported");
                 else if (month <= 5)
-                    throw new ShieldException("Months Jan-May of 2020 are not supported");
+                    throw new AegisException("Months Jan-May of 2020 are not supported");
             }
 
             if (page < 1)
-                throw new ShieldException("Page cannot be less than 1");
+                throw new AegisException("Page cannot be less than 1");
         }
 
         @ToString.Include
