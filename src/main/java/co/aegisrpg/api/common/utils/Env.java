@@ -1,6 +1,6 @@
 package co.aegisrpg.api.common.utils;
 
-import co.aegisrpg.api.common.ShieldAPI;
+import co.aegisrpg.api.common.AegisAPI;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +15,6 @@ public enum Env {
     }
 
     public static boolean applies(List<Env> envs) {
-        return envs.contains(ShieldAPI.get().getEnv());
+        return envs.contains(AegisAPI.get().getEnv());
     }
 }

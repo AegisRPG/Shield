@@ -1,5 +1,7 @@
 package co.aegisrpg.utils;
 
+import co.aegisrpg.framework.interfaces.IsColoredAndNamed;
+import co.aegisrpg.framework.interfaces.IsColoredAndNicknamed;
 import gg.projecteden.api.interfaces.HasUniqueId;
 import net.kyori.adventure.identity.Identified;
 import net.kyori.adventure.identity.Identity;

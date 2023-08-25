@@ -1,6 +1,6 @@
 package co.aegisrpg.api.common.utils;
 
-import co.aegisrpg.api.common.ShieldAPI;
+import co.aegisrpg.api.common.AegisAPI;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
 import org.jetbrains.annotations.NotNull;
@@ -70,8 +70,8 @@ public class ReflectionUtils {
                 .enableAnnotationInfo()
                 .initializeLoadedClasses();
 
-        if (ShieldAPI.get().getClassLoader() != null)
-            scanner.overrideClassLoaders(ShieldAPI.get().getClassLoader());
+        if (AegisAPI.get().getClassLoader() != null)
+            scanner.overrideClassLoaders(AegisAPI.get().getClassLoader());
 
         return scanner;
     }

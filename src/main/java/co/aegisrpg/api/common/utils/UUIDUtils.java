@@ -1,6 +1,6 @@
 package co.aegisrpg.api.common.utils;
 
-import co.aegisrpg.api.common.ShieldAPI;
+import co.aegisrpg.api.common.AegisAPI;
 import org.jetbrains.annotations.Contract;
 
 import java.util.UUID;
@@ -46,7 +46,7 @@ public class UUIDUtils {
     }
 
     public static boolean isAppUuid(UUID uuid) {
-        return ShieldAPI.get().getAppUuid().equals(uuid);
+        return AegisAPI.get().getAppUuid().equals(uuid);
     }
 
     public static String uuidFormat(String uuid) {

@@ -1,6 +1,6 @@
 package co.aegisrpg.api.common.utils;
 
-import co.aegisrpg.api.common.exceptions.ShieldException;
+import co.aegisrpg.api.common.exceptions.AegisException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -91,7 +91,7 @@ public class TimeUtils {
             return LocalDate.parse(input);
         } catch (DateTimeParseException ignore) {
         }
-        throw new ShieldException("Could not parse date, correct format is MM/DD/YYYY");
+        throw new AegisException("Could not parse date, correct format is MM/DD/YYYY");
     }
 
     public static LocalDateTime parseDateTime(String input) {
@@ -99,7 +99,7 @@ public class TimeUtils {
             return LocalDateTime.parse(input);
         } catch (DateTimeParseException ignore) {
         }
-        throw new ShieldException("Could not parse date, correct format is YYYY-MM-DDTHH:MM:SS");
+        throw new AegisException("Could not parse date, correct format is YYYY-MM-DDTHH:MM:SS");
     }
 
     @Getter
@@ -121,7 +121,7 @@ public class TimeUtils {
                 double multiplier = Double.parseDouble(input.replaceAll("[^\\d.]+", ""));
                 return MillisTime.valueOf(name()).x(multiplier);
             } catch (NumberFormatException ex) {
-                throw new ShieldException("Invalid " + name().toLowerCase() + ": &e" + input);
+                throw new AegisException("Invalid " + name().toLowerCase() + ": &e" + input);
             }
         }
 
