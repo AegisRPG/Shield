@@ -6,17 +6,17 @@ import com.google.gson.GsonBuilder;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class ShieldAPI {
-    protected static ShieldAPI instance;
+public abstract class AegisAPI {
+    protected static AegisAPI instance;
 
-    public ShieldAPI() {
+    public AegisAPI() {
     }
 
-    public static ShieldAPI get() {
+    public static AegisAPI get() {
         return instance;
     }
 
-    public static <T extends ShieldAPI> Optional<T> getAs(Class<T> clazz) {
+    public static <T extends AegisAPI> Optional<T> getAs(Class<T> clazz) {
         if (clazz.isInstance(instance)) {
             //noinspection unchecked
             return Optional.of((T) instance);

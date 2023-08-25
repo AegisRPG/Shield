@@ -3,13 +3,13 @@ package co.aegisrpg.api.common.exceptions;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class ShieldException extends RuntimeException {
+public class AegisException extends RuntimeException {
 
-    public ShieldException(String message) {
+    public AegisException(String message) {
         super(message);
     }
 
-    public ShieldException(String message, Throwable cause) {
+    public AegisException(String message, Throwable cause) {
         super(message, cause);
     }
 
