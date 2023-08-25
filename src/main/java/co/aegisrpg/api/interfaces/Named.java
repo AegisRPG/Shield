@@ -2,8 +2,6 @@ package co.aegisrpg.api.interfaces;
 
 import org.jetbrains.annotations.NotNull;
 
-public class Named {
-
+public interface Named {
     @NotNull String getName();
-
 }
