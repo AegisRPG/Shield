@@ -1,5 +1,6 @@
 package co.aegisrpg.utils;
 
+import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang3.Range;
@@ -15,6 +16,8 @@ import java.util.EnumSet;
 import java.util.Set;
 import java.util.function.Predicate;
 import co.aegisrpg.utils.BiomeTag.Tag.MatchMode;
+
+import static co.aegisrpg.utils.Extensions.camelCase;
 
 @Getter
 @AllArgsConstructor

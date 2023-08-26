@@ -1,5 +1,6 @@
 package co.aegisrpg.utils;
 
+import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
 import com.gmail.nossr50.datatypes.mods.CustomBlock;
 import gg.projecteden.parchment.HasPlayer;
 import lombok.NonNull;

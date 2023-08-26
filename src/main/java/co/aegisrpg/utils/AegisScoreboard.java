@@ -14,6 +14,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 import static co.aegisrpg.api.common.utils.StringUtils.left;
+import static co.aegisrpg.utils.StringUtils.colorize;
 
 public class AegisScoreboard {
     private static final ScoreboardManager manager = Shield.getInstance().getServer().getScoreboardManager();
