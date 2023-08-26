@@ -1,6 +1,8 @@
 package co.aegisrpg.utils;
 
 import co.aegisrpg.Shield;
+import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
+import com.gmail.nossr50.datatypes.skills.ToolType;
 import de.tr7zw.nbtapi.NBTItem;
 import gg.projecteden.parchment.HasPlayer;
 import lombok.AllArgsConstructor;
@@ -45,6 +47,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static co.aegisrpg.utils.Nullables.isNullOrAir;
+import static co.aegisrpg.utils.StringUtils.stripColor;
 
 public class ItemUtils {
 
@@ -359,14 +362,14 @@ public class ItemUtils {
     }
 
     public static boolean hasLore(ItemStack dye, String line) {
-        line = StringUtils.stripColor(line);
+        line = stripColor(line);
 
         List<String> lore = dye.getItemMeta().getLore();
         if (lore == null || lore.isEmpty())
             return false;
 
         for (String _line : lore) {
-            _line = StringUtils.stripColor(_line);
+            _line = stripColor(_line);
             if (_line.equals(line))
                 return true;
         }

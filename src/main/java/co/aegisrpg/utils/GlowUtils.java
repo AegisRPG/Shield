@@ -18,6 +18,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static co.aegisrpg.utils.Nullables.isNullOrAir;
+
 public class GlowUtils {
 
     public static GlowBuilder glow(@NonNull Entity entity) {

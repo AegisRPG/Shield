@@ -1,5 +1,7 @@
 package co.aegisrpg.utils;
 
+import co.aegisrpg.Shield;
+import co.aegisrpg.api.common.utils.RandomUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

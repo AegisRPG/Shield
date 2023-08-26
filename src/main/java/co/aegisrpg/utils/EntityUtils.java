@@ -1,5 +1,6 @@
 package co.aegisrpg.utils;
 
+import co.aegisrpg.Shield;
 import de.tr7zw.nbtapi.NBTContainer;
 import de.tr7zw.nbtapi.NBTEntity;
 import gg.projecteden.parchment.HasPlayer;
@@ -7,7 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.craftbukkit.v1_19_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_20_R1.entity.CraftEntity;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.util.EulerAngle;
@@ -17,6 +18,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static co.aegisrpg.utils.Distance.distance;
+import static co.aegisrpg.utils.Extensions.camelCase;
 
 
 public class EntityUtils {

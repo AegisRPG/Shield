@@ -1,6 +1,7 @@
 package co.aegisrpg.utils;
 
 import co.aegisrpg.Shield;
+import co.aegisrpg.api.common.utils.CompletableFutures;
 import gg.projecteden.api.interfaces.HasUniqueId;
 import lombok.*;
 import net.luckperms.api.LuckPerms;
@@ -29,6 +30,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
+
+import static co.aegisrpg.utils.Extensions.isNullOrEmpty;
 
 public class LuckPermsUtils {
 

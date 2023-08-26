@@ -1,6 +1,7 @@
 package co.aegisrpg.utils;
 
 import co.aegisrpg.Shield;
+import co.aegisrpg.features.clientside.models.ClientSideItemFrame;
 import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
 import com.google.common.base.Preconditions;
 import com.google.gson.ExclusionStrategy;

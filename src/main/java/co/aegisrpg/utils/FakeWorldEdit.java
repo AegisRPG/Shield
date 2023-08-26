@@ -1,5 +1,6 @@
 package co.aegisrpg.utils;
 
+import co.aegisrpg.utils.FakeWorldEdit.Clipboard.ClipboardBuilder;
 import gg.projecteden.parchment.HasLocation;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,13 +49,13 @@ public class FakeWorldEdit {
 		public Clipboard(World world, Location min, Location max, Predicate<BlockData> filter) {
 			this.world = world;
 			this.min = new Location(min.getWorld(),
-				Math.min(min.getBlockX(), max.getBlockX()),
-				Math.min(min.getBlockY(), max.getBlockY()),
-				Math.min(min.getBlockZ(), max.getBlockZ()));
+					Math.min(min.getBlockX(), max.getBlockX()),
+					Math.min(min.getBlockY(), max.getBlockY()),
+					Math.min(min.getBlockZ(), max.getBlockZ()));
 			this.max = new Location(min.getWorld(),
-				Math.max(min.getBlockX(), max.getBlockX()),
-				Math.max(min.getBlockY(), max.getBlockY()),
-				Math.max(min.getBlockZ(), max.getBlockZ()));
+					Math.max(min.getBlockX(), max.getBlockX()),
+					Math.max(min.getBlockY(), max.getBlockY()),
+					Math.max(min.getBlockZ(), max.getBlockZ()));
 			this.filter = filter == null ? block -> true : filter;
 			copy();
 		}
@@ -81,9 +82,9 @@ public class FakeWorldEdit {
 		@NotNull
 		private Location offset(Location location, Location to) {
 			return location.clone().add(
-				to.getBlockX() - min.getBlockX(),
-				to.getBlockY() - min.getBlockY(),
-				to.getBlockZ() - min.getBlockZ()
+					to.getBlockX() - min.getBlockX(),
+					to.getBlockY() - min.getBlockY(),
+					to.getBlockZ() - min.getBlockZ()
 			);
 		}
 

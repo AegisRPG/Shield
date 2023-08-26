@@ -7,6 +7,7 @@ import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotFoundException;
 import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotOnlineException;
 import co.aegisrpg.framework.interfaces.PlayerOwnedObject;
 import co.aegisrpg.api.common.utils.Utils.MinMaxResult;
+import com.onarandombox.multiverseinventories.WorldGroup;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import de.tr7zw.nbtapi.NBTContainer;
 import de.tr7zw.nbtapi.NBTItem;

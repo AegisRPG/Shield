@@ -1,5 +1,6 @@
 package co.aegisrpg.utils;
 
+import co.aegisrpg.api.common.utils.EnumUtils.IterableEnum;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
 

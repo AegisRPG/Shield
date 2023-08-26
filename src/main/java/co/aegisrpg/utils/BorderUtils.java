@@ -1,5 +1,6 @@
 package co.aegisrpg.utils;
 
+import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
 import com.onarandombox.multiverseinventories.utils.paperlib.PaperLib;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

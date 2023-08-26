@@ -1,6 +1,9 @@
 package co.aegisrpg.utils;
 
 import co.aegisrpg.Shield;
+import co.aegisrpg.api.common.utils.TimeUtils.TickTime;
+import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
+import co.aegisrpg.framework.interfaces.IsColored;
 import de.tr7zw.nbtapi.NBTEntity;
 import de.tr7zw.nbtapi.NBTItem;
 import dev.dbassett.skullcreator.SkullCreator;
@@ -20,6 +23,7 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
+import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftMetaSpawnEgg;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Axolotl;
 import org.bukkit.entity.Entity;
@@ -44,6 +48,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static co.aegisrpg.api.common.utils.Nullables.isNullOrEmpty;
+import static co.aegisrpg.utils.Nullables.isNullOrAir;
+import static co.aegisrpg.utils.StringUtils.colorize;
 
 public class ItemBuilder implements Cloneable, Supplier<ItemStack> {
     private ItemStack itemStack;

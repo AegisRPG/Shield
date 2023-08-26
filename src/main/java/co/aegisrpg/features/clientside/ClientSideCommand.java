@@ -29,7 +29,6 @@ import java.util.function.BiFunction;
 
 import static co.aegisrpg.api.common.utils.Nullables.isNullOrEmpty;
 import static co.aegisrpg.utils.Extensions.camelCase;
-import static jdk.internal.org.jline.utils.Log.error;
 
 @NoArgsConstructor
 public class ClientSideCommand extends CustomCommand implements Listener {

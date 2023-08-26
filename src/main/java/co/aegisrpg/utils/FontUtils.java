@@ -3,7 +3,6 @@ package co.aegisrpg.utils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import me.lucko.helper.gson.JsonBuilder;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.format.Style;
 import org.bukkit.entity.Player;

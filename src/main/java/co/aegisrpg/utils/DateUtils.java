@@ -1,5 +1,7 @@
 package co.aegisrpg.utils;
 
+import co.aegisrpg.Shield;
+
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.YearMonth;

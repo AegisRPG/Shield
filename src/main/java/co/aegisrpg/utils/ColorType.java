@@ -2,6 +2,9 @@ package co.aegisrpg.utils;
 
 import co.aegisrpg.api.common.utils.RandomUtils;
 import co.aegisrpg.api.common.utils.StringUtils;
+import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
+import co.aegisrpg.framework.interfaces.Colored;
+import co.aegisrpg.framework.interfaces.IsColored;
 import co.aegisrpg.utils.GlowUtils.GlowColor;
 import com.gmail.nossr50.datatypes.mods.CustomBlock;
 import lombok.AllArgsConstructor;
