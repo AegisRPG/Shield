@@ -1,0 +1,129 @@
+package co.aegisrpg.models.clientside;
+
+import co.aegisrpg.Shield;
+import co.aegisrpg.features.clientside.models.IClientSideEntity;
+import co.aegisrpg.features.clientside.models.IClientSideEntity.ClientSideEntityType;
+import co.aegisrpg.framework.interfaces.PlayerOwnedObject;
+import co.aegisrpg.framework.persistence.serializer.mongodb.LocationConverter;
+import co.aegisrpg.utils.LocationUtils;
+import dev.morphia.annotations.Converters;
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
+import dev.morphia.converters.UUIDConverter;
+import lombok.*;
+import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
+import org.bukkit.World;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.util.BoundingBox;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
+@Data
+@Entity(value = "client_side_config", noClassnameStored = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
+@Converters({UUIDConverter.class, LocationConverter.class})
+public class ClientSideConfig implements PlayerOwnedObject {
+    @Id
+    @NonNull
+    private UUID uuid;
+    private Map<World, List<IClientSideEntity<?, ?, ?>>> entities = new ConcurrentHashMap<>();
+
+    public static ClientSideConfig get() {
+        return new ClientSideConfigService().get0();
+    }
+
+    public static Map<World, List<IClientSideEntity<?, ?, ?>>> getEntities() {
+        return get().entities;
+    }
+
+    public static List<IClientSideEntity<?, ?, ?>> getAllEntities() {
+        return getEntities().values().stream().flatMap(Collection::stream).toList();
+    }
+
+    public static void save() {
+        new ClientSideConfigService().save(get());
+    }
+
+    public static List<IClientSideEntity<?, ?, ?>> getEntities(Location location) {
+        return getEntities(location.getWorld()).stream()
+                .filter(entity -> LocationUtils.isFuzzyEqual(location, entity.getLocation()))
+                .toList();
+    }
+
+    public static List<IClientSideEntity<?, ?, ?>> getEntities(Location location, double radius) {
+        final BoundingBox box = BoundingBox.of(location, radius, radius, radius);
+        return getEntities(location.getWorld()).stream()
+                .filter(entity -> box.contains(entity.location().toVector()))
+                .toList();
+    }
+
+    public static List<IClientSideEntity<?, ?, ?>> getEntities(Location location, ClientSideEntityType type, double radius) {
+        return getEntities(location, radius).stream()
+                .filter(entity -> entity.getType() == type)
+                .toList();
+    }
+
+    public static List<IClientSideEntity<?, ?, ?>> getEntities(@NotNull World world) {
+        return getEntities().computeIfAbsent(world, $ -> new ArrayList<>());
+    }
+
+    public static IClientSideEntity<?, ?, ?> getEntity(UUID uuid) {
+        return getAllEntities().stream().filter(entity -> uuid.equals(entity.uuid())).findFirst().orElse(null);
+    }
+
+    public static IClientSideEntity<?, ?, ?> getEntity(World world, int id) {
+        return getEntities(world).stream().filter(entity -> id == entity.id()).findFirst().orElse(null);
+    }
+
+    public static void createEntity(IClientSideEntity<?, ?, ?> entity) {
+        getEntities(entity.location().getWorld()).add(entity);
+        new ClientSideUserService().getOnline().forEach(user -> user.onCreate(entity));
+    }
+
+    public static void delete(World world, int entityId) {
+        delete(getEntity(world, entityId));
+    }
+
+    public static void delete(IClientSideEntity<?, ?, ?> entity) {
+        new ClientSideUserService().getOnline().forEach(user -> user.onRemove(entity));
+        getEntities(entity.location().getWorld()).remove(entity);
+    }
+
+    public static void onUpdateVisibility(IClientSideEntity<?, ?, ?> entity) {
+        new ClientSideUserService().getOnline().forEach(user -> user.updateVisibility(entity));
+    }
+
+    private static final NamespacedKey IGNORE_NBT_KEY = new NamespacedKey(Shield.getInstance(), "clientside.entities.ignore");
+
+    public static void ignoreEntity(org.bukkit.entity.Entity entity) {
+        entity.getPersistentDataContainer().set(IGNORE_NBT_KEY, PersistentDataType.BYTE, (byte) 1);
+    }
+
+    public static void unignoreEntity(org.bukkit.entity.Entity entity) {
+        entity.getPersistentDataContainer().remove(IGNORE_NBT_KEY);
+    }
+
+    public static boolean isIgnoredEntity(org.bukkit.entity.Entity entity) {
+        if (ArmorStandStalker.isStalker(entity))
+            return true;
+
+        if (entity instanceof ArmorStand armorStand)
+            if (armorStand.isMarker())
+                return true;
+
+        WorldGuardUtils WGUtils = new WorldGuardUtils(entity);
+        if (SubWorldGroup.SURVIVAL.contains(WGUtils.getWorld()))
+            if (WGUtils.isInRegion(entity.getLocation(), DecorationStore.getStoreRegion()))
+                return true;
+
+        final Byte nbt = entity.getPersistentDataContainer().get(IGNORE_NBT_KEY, PersistentDataType.BYTE);
+        return nbt != null && nbt == 1;
+    }
+
+}
