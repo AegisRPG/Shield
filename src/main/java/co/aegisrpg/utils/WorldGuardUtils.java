@@ -3,6 +3,8 @@ package co.aegisrpg.utils;
 import co.aegisrpg.api.common.utils.RandomUtils;
 import co.aegisrpg.api.common.utils.RegexUtils;
 import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
+import co.aegisrpg.utils.PlayerUtils.OnlinePlayers;
+import co.aegisrpg.utils.CitizensUtils.NPCFinder;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
