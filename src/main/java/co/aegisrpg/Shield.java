@@ -5,6 +5,7 @@ import co.aegisrpg.api.common.utils.EnumUtils;
 import co.aegisrpg.api.common.utils.Env;
 import co.aegisrpg.api.common.utils.ReflectionUtils;
 import co.aegisrpg.api.common.utils.Utils;
+import co.aegisrpg.utils.WorldGuardFlagUtils.CustomFlags;
 import lombok.Getter;
 import lombok.Setter;
 import me.arcaniax.hdb.api.HeadDatabaseAPI;
@@ -49,13 +50,14 @@ public final class Shield extends JavaPlugin {
     public static <T> T singletonOf(Class<T> clazz) {
         return (T) singletons.computeIfAbsent(clazz, $ -> {
             try {
-                return clazz.getConstuctor().newInstance();
+                return clazz.getConstructor().newInstance();
             } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException ex) {
-                Shield.log(Level.FINE, "Failed to create singleton of " + clazz.getName() + ", falling bacj to Objenesis", ex);
-            } try {
-                return new ObjenesisStd(). newInstance(clazz);
-            } catch (Throwable t) {
-                throw new IllegalStateException("Failed to create singleton of " + clazz.getName() + " using Objenesis", t);
+                Shield.log(Level.FINE, "Failed to create singleton of " + clazz.getName() + ", falling back to Objenesis", ex);
+                try {
+                    return new ObjenesisStd().newInstance(clazz);
+                } catch (Throwable t) {
+                    throw new IllegalStateException("Failed to create singleton of " + clazz.getName() + " using Objenesis", t);
+                }
             }
         });
     }
