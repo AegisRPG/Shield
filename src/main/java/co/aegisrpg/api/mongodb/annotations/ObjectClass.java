@@ -1,6 +1,6 @@
 package co.aegisrpg.api.mongodb.annotations;
 
-import co.aegisrpg.api.interfaces.DatabaseObject;
+import gg.projecteden.api.interfaces.DatabaseObject;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
