@@ -37,6 +37,7 @@ repositories {
 //    maven { url = uri("https://ci.ender.zone/plugin/repository/project/") }
     maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/") }
     maven { url = uri("https://repo.repsy.io/mvn/quantiom/minecraft") }
+    maven { url = uri("https://mvnrepository.com/artifact/net.dv8tion/JDA") }
 }
 
 dependencies {
@@ -58,6 +59,8 @@ dependencies {
     implementation("com.google.apis:google-api-services-sheets:v4-rev20221216-2.0.0")
     implementation("dev.dbassett:skullcreator:3.0.1")
     implementation("com.github.mpkorstanje:simmetrics-core:4.1.1")
+    implementation("net.dv8tion:JDA:5.0.0-beta.13")
+    implementation("club.minnced:opus-java-api:1.1.1")
     compileOnly("gg.projecteden.crates:api:1.0.6-SNAPSHOT")
     compileOnly("fr.moribus:ImageOnMap:4.2.2-EDEN")
     compileOnly("me.lucko:helper:5.6.13")
