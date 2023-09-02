@@ -2,6 +2,10 @@ package co.aegisrpg.hooks;
 
 import co.aegisrpg.hooks.citizens.CitizensHook;
 import co.aegisrpg.hooks.citizens.CitizensHookImpl;
+import co.aegisrpg.hooks.glowapi.GlowAPIHook;
+import co.aegisrpg.hooks.glowapi.GlowAPIHookImpl;
+import co.aegisrpg.hooks.viaversion.ViaVersionHook;
+import co.aegisrpg.hooks.viaversion.ViaVersionHookImpl;
 import co.aegisrpg.utils.Utils;
 import lombok.Getter;
 import lombok.SneakyThrows;
