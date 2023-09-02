@@ -41,6 +41,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.json:org.json:chargebee-1.0")
     paperweightDevBundle("gg.projecteden.parchment", "1.20.1-R0.1-SNAPSHOT")
     compileOnly("gg.projecteden.parchment:parchment-api:1.20.1-R0.1-SNAPSHOT")
     implementation("io.papermc:paperlib:1.0.8-SNAPSHOT")
