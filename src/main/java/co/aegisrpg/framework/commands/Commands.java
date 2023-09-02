@@ -2,6 +2,9 @@ package co.aegisrpg.framework.commands;
 
 import co.aegisrpg.Shield;
 import co.aegisrpg.api.common.utils.Utils;
+import co.aegisrpg.framework.commands.models.annotations.ConverterFor;
+import co.aegisrpg.framework.commands.models.annotations.TabCompleterFor;
+import co.aegisrpg.utils.StringUtils;
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
 
@@ -9,6 +12,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import static co.aegisrpg.api.common.utils.ReflectionUtils.methodsAnnotatedWith;
+import static co.aegisrpg.api.common.utils.ReflectionUtils.subTypesOf;
 
 public class Commands {
     private final Plugin plugin;
@@ -63,7 +67,7 @@ public class Commands {
     }
 
     public void registerAll() {
-        Nexus.debug(" Registering " + commandSet.size() + " commands");
+        Shield.debug(" Registering " + commandSet.size() + " commands");
         commandSet.forEach(this::register);
     }
 
@@ -71,7 +75,7 @@ public class Commands {
         for (Class<? extends CustomCommand> clazz : customCommands)
             try {
                 if (Utils.canEnable(clazz))
-                    register(Nexus.singletonOf(clazz));
+                    register(Shield.singletonOf(clazz));
             } catch (Throwable ex) {
                 plugin.getLogger().info("Error while registering command " + prettyName(clazz));
                 ex.printStackTrace();

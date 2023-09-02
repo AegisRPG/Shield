@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 
 import static co.aegisrpg.api.common.utils.StringUtils.left;
 import static co.aegisrpg.utils.Extensions.isNullOrEmpty;
+import static co.aegisrpg.utils.StringUtils.COMMA_SPLIT_REGEX;
 import static java.util.stream.Collectors.toList;
 
 @Data
@@ -88,7 +89,7 @@ class PathParser {
                                 arg.setContextArg(command.getMethodParameters(method, event, false)[annotation.context() - 1]);
                             } catch (Exception ex) {
                                 if (Shield.isDebug())
-                                    if (!(ex instanceof InvocationTargetException && ex.getCause() instanceof EdenException))
+                                    if (!(ex instanceof InvocationTargetException && ex.getCause() instanceof AegisException))
                                         ex.printStackTrace();
                             }
                     }

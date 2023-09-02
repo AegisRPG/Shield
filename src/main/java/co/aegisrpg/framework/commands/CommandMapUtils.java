@@ -1,6 +1,9 @@
 package co.aegisrpg.framework.commands;
 
 import co.aegisrpg.api.common.utils.Utils;
+import co.aegisrpg.framework.commands.models.annotations.Description;
+import co.aegisrpg.framework.commands.models.annotations.Permission;
+import co.aegisrpg.framework.commands.models.annotations.Redirects.Redirect;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

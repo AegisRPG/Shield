@@ -5,7 +5,6 @@ import co.aegisrpg.api.common.exceptions.AegisException;
 import co.aegisrpg.framework.commands.Commands;
 import co.aegisrpg.framework.commands.models.annotations.Description;
 import co.aegisrpg.framework.commands.models.annotations.Path;
-import co.aegisrpg.framework.exceptions.AegisException;
 import co.aegisrpg.utils.JsonBuilder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

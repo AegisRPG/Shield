@@ -2,6 +2,7 @@ package co.aegisrpg.framework.commands.models.events;
 
 import co.aegisrpg.api.common.exceptions.AegisException;
 import co.aegisrpg.utils.JsonBuilder;
+import co.aegisrpg.utils.PlayerUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
