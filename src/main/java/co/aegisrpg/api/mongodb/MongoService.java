@@ -3,7 +3,6 @@ package co.aegisrpg.api.mongodb;
 import co.aegisrpg.api.common.AegisAPI;
 import co.aegisrpg.api.common.exceptions.AegisException;
 import co.aegisrpg.api.common.utils.Log;
-import co.aegisrpg.api.interfaces.DatabaseObject;
 import co.aegisrpg.api.mongodb.annotations.ObjectClass;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -14,6 +13,7 @@ import dev.morphia.annotations.Entity;
 import dev.morphia.mapping.cache.EntityCache;
 import dev.morphia.query.Sort;
 import dev.morphia.query.UpdateException;
+import gg.projecteden.api.interfaces.DatabaseObject;
 import gg.projecteden.api.interfaces.HasUniqueId;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -34,16 +34,16 @@ import static co.aegisrpg.api.common.utils.ReflectionUtils.subTypesOf;
 import static co.aegisrpg.api.common.utils.UUIDUtils.UUID0;
 import static com.mongodb.MongoClient.getDefaultCodecRegistry;
 
-public abstract class MongoService<T extends DatabaseObject> {
+public abstract class MongoService<T extends gg.projecteden.api.interfaces.DatabaseObject> {
     protected static Datastore database;
     protected static String _id = "_id";
 
     @Getter
     private static final Set<Class<? extends MongoService>> services = subTypesOf(MongoService.class, MongoService.class.getPackageName() + ".models");
     @Getter
-    private static final Map<Class<? extends DatabaseObject>, Class<? extends MongoService>> objectToServiceMap = new HashMap<>();
+    private static final Map<Class<? extends gg.projecteden.api.interfaces.DatabaseObject>, Class<? extends MongoService>> objectToServiceMap = new HashMap<>();
     @Getter
-    private static final Map<Class<? extends MongoService>, Class<? extends DatabaseObject>> serviceToObjectMap = new HashMap<>();
+    private static final Map<Class<? extends MongoService>, Class<? extends gg.projecteden.api.interfaces.DatabaseObject>> serviceToObjectMap = new HashMap<>();
 
     public static void loadServices() {
         loadServices(Collections.emptySet());
@@ -75,19 +75,19 @@ public abstract class MongoService<T extends DatabaseObject> {
         return annotation == null ? null : (Class<T>) annotation.value();
     }
 
-    public static Class<? extends DatabaseObject> ofService(MongoService mongoService) {
+    public static Class<? extends gg.projecteden.api.interfaces.DatabaseObject> ofService(MongoService mongoService) {
         return ofService(mongoService.getClass());
     }
 
-    public static Class<? extends DatabaseObject> ofService(Class<? extends MongoService> mongoService) {
+    public static Class<? extends gg.projecteden.api.interfaces.DatabaseObject> ofService(Class<? extends MongoService> mongoService) {
         return serviceToObjectMap.get(mongoService);
     }
 
-    public static Class<? extends MongoService> ofObject(DatabaseObject object) {
+    public static Class<? extends MongoService> ofObject(gg.projecteden.api.interfaces.DatabaseObject object) {
         return ofObject(object.getClass());
     }
 
-    public static Class<? extends MongoService> ofObject(Class<? extends DatabaseObject> object) {
+    public static Class<? extends MongoService> ofObject(Class<? extends gg.projecteden.api.interfaces.DatabaseObject> object) {
         return objectToServiceMap.get(object);
     }
 

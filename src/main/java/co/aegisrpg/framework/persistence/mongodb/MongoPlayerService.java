@@ -1,13 +1,13 @@
 package co.aegisrpg.framework.persistence.mongodb;
 
 import co.aegisrpg.framework.interfaces.PlayerOwnedObject;
-import co.aegisrpg.utils.PlayerUtils;
+import co.aegisrpg.utils.PlayerUtils.OnlinePlayers;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MongoPlayerService<T extends PlayerOwnedObject> extends MongoBukkitService<T> {
+public abstract class MongoPlayerService<T extends PlayerOwnedObject> extends MongoBukkitService<T> {
 
     @Override
     protected String pretty (T object) {
@@ -16,7 +16,7 @@ public class MongoPlayerService<T extends PlayerOwnedObject> extends MongoBukkit
 
     public List<T> getOnline() {
         List<T> online = new ArrayList<>();
-        for (Player player : PlayerUtils.OnlinePlayers.getAll())
+        for (Player player : OnlinePlayers.getAll())
             online.add(get(player));
         return online;
     }

@@ -1,6 +1,6 @@
 package co.aegisrpg.api.mongodb.models.hours;
 
-import co.aegisrpg.api.mongodb.interfaces.PlayerOwnedObject;
+import co.aegisrpg.framework.interfaces.PlayerOwnedObject;
 import dev.morphia.annotations.Converters;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
