@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static co.aegisrpg.utils.StringUtils.colorize;
+
 @Getter
 @Setter
 @NoArgsConstructor

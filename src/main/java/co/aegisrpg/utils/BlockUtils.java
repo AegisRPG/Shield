@@ -1,6 +1,7 @@
 package co.aegisrpg.utils;
 
 import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
+import co.aegisrpg.utils.LocationUtils.Axis;
 import com.gmail.nossr50.datatypes.mods.CustomBlock;
 import gg.projecteden.parchment.HasPlayer;
 import lombok.NonNull;
@@ -26,6 +27,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static co.aegisrpg.Shield.debug;
+import static co.aegisrpg.utils.ItemUtils.isPreferredTool;
 
 public class BlockUtils {
 
