@@ -1,5 +1,6 @@
 package co.aegisrpg.framework.commands;
 
+import co.aegisrpg.framework.commands.models.events.CommandRunEvent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

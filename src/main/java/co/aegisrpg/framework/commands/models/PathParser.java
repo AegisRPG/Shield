@@ -6,6 +6,7 @@ import co.aegisrpg.api.common.utils.Utils;
 import co.aegisrpg.framework.commands.models.annotations.Arg;
 import co.aegisrpg.framework.commands.models.annotations.Path;
 import co.aegisrpg.framework.commands.models.annotations.Switch;
+import co.aegisrpg.framework.commands.models.events.CommandEvent;
 import co.aegisrpg.framework.interfaces.PlayerOwnedObject;
 import lombok.*;
 import lombok.experimental.Accessors;
