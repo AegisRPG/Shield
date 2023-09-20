@@ -2,6 +2,8 @@ package co.aegisrpg.api.mongodb;
 
 import co.aegisrpg.api.common.exceptions.postconfigured.PlayerNotFoundException;
 import co.aegisrpg.api.common.utils.UUIDUtils;
+import co.aegisrpg.api.mongodb.models.nerd.Nerd;
+import co.aegisrpg.api.mongodb.models.nerd.NerdService;
 import co.aegisrpg.framework.interfaces.PlayerOwnedObject;
 
 import java.util.UUID;
