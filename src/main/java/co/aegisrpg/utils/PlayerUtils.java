@@ -2,6 +2,10 @@ package co.aegisrpg.utils;
 
 import co.aegisrpg.Shield;
 import co.aegisrpg.api.common.utils.RandomUtils;
+import co.aegisrpg.api.mongodb.models.nerd.Nerd;
+import co.aegisrpg.api.mongodb.models.nerd.NerdService;
+import co.aegisrpg.api.mongodb.models.nickname.Nickname;
+import co.aegisrpg.api.mongodb.models.nickname.NicknameService;
 import co.aegisrpg.features.commands.staff.WorldGuardEditCommand;
 import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
 import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotFoundException;
