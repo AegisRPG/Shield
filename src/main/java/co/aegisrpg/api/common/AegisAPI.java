@@ -9,9 +9,6 @@ import java.util.UUID;
 public abstract class AegisAPI {
     protected static AegisAPI instance;
 
-    public AegisAPI() {
-    }
-
     public static AegisAPI get() {
         return instance;
     }
@@ -25,14 +22,14 @@ public abstract class AegisAPI {
     }
 
     public String getAppName() {
-        return this.getClass().getSimpleName();
+        return getClass().getSimpleName();
     }
 
     public UUID getAppUuid() {
-        return UUID.nameUUIDFromBytes(this.getAppName().getBytes());
+        return UUID.nameUUIDFromBytes(getAppName().getBytes());
     }
 
-    public abstract Env getEnv();
+    abstract public Env getEnv();
 
     public ClassLoader getClassLoader() {
         return null;
@@ -41,10 +38,11 @@ public abstract class AegisAPI {
     public abstract void shutdown();
 
     public GsonBuilder getPrettyPrinter() {
-        return (new GsonBuilder()).setPrettyPrinting();
+        return new GsonBuilder().setPrettyPrinting();
     }
 
     public void sync(Runnable runnable) {
         runnable.run();
     }
+
 }
