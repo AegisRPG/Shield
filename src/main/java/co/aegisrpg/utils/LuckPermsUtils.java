@@ -2,6 +2,7 @@ package co.aegisrpg.utils;
 
 import co.aegisrpg.Shield;
 import co.aegisrpg.api.common.utils.CompletableFutures;
+import co.aegisrpg.models.nerd.Rank;
 import gg.projecteden.api.interfaces.HasUniqueId;
 import lombok.*;
 import net.luckperms.api.LuckPerms;
@@ -186,7 +187,7 @@ public class LuckPermsUtils {
         CompletableFuture<List<UUID>> future = new CompletableFuture<>();
 
         search.thenAccept(map -> future.complete(map.keySet().stream()
-                .filter(Dev.KODA::isNot)
+//                .filter(Dev.KODA::isNot)
                 .toList()));
 
         return future;

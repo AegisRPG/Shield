@@ -2,6 +2,7 @@ package co.aegisrpg.utils;
 
 import co.aegisrpg.Shield;
 import co.aegisrpg.api.common.utils.TimeUtils.TickTime;
+import co.aegisrpg.api.mongodb.models.nickname.Nickname;
 import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
 import co.aegisrpg.framework.interfaces.IsColored;
 import de.tr7zw.nbtapi.NBTEntity;

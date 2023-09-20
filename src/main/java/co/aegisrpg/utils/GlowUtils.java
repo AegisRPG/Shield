@@ -1,6 +1,7 @@
 package co.aegisrpg.utils;
 
 import co.aegisrpg.api.common.utils.Tasks;
+import co.aegisrpg.hooks.Hook;
 import gg.projecteden.parchment.OptionalPlayer;
 import lombok.Builder;
 import lombok.NonNull;
