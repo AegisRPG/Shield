@@ -2,6 +2,9 @@ package co.aegisrpg.api.mongodb.interfaces;
 
 import co.aegisrpg.api.common.utils.Nullables;
 import co.aegisrpg.api.common.utils.StringUtils;
+import co.aegisrpg.api.mongodb.models.nerd.Nerd;
+import co.aegisrpg.api.mongodb.models.nickname.Nickname;
+import co.aegisrpg.api.mongodb.models.nickname.NicknameService;
 import gg.projecteden.api.interfaces.DatabaseObject;
 import gg.projecteden.api.interfaces.HasUniqueId;
 import gg.projecteden.api.interfaces.Nicknamed;

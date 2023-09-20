@@ -2,10 +2,14 @@ package co.aegisrpg.framework.interfaces;
 
 import co.aegisrpg.Shield;
 import co.aegisrpg.api.common.utils.Tasks;
+import co.aegisrpg.api.mongodb.models.nerd.Nerd;
+import co.aegisrpg.api.mongodb.models.nickname.Nickname;
+import co.aegisrpg.api.mongodb.models.nickname.NicknameService;
 import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotOnlineException;
 import co.aegisrpg.utils.AdventureUtils;
 import co.aegisrpg.utils.Distance;
 import co.aegisrpg.utils.JsonBuilder;
+import co.aegisrpg.utils.Name;
 import co.aegisrpg.utils.worldgroup.WorldGroup;
 import gg.projecteden.api.interfaces.HasUniqueId;
 import gg.projecteden.parchment.HasLocation;
@@ -23,8 +27,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.UUID;
 
+import static co.aegisrpg.api.common.utils.Nullables.isNullOrEmpty;
 import static co.aegisrpg.api.common.utils.UUIDUtils.isUUID0;
 import static co.aegisrpg.utils.Distance.distance;
+import static co.aegisrpg.utils.PlayerUtils.OnlinePlayers.Filter.AFK;
 
 /**
  * A mongo database object owned by a player
