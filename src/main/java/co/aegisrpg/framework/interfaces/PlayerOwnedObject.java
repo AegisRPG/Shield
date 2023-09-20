@@ -30,7 +30,6 @@ import java.util.UUID;
 import static co.aegisrpg.api.common.utils.Nullables.isNullOrEmpty;
 import static co.aegisrpg.api.common.utils.UUIDUtils.isUUID0;
 import static co.aegisrpg.utils.Distance.distance;
-import static co.aegisrpg.utils.PlayerUtils.OnlinePlayers.Filter.AFK;
 
 /**
  * A mongo database object owned by a player
