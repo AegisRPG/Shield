@@ -5,16 +5,35 @@ import co.aegisrpg.api.common.utils.EnumUtils;
 import co.aegisrpg.api.common.utils.Env;
 import co.aegisrpg.api.common.utils.ReflectionUtils;
 import co.aegisrpg.api.common.utils.Utils;
+import co.aegisrpg.api.mongodb.MongoService;
+import co.aegisrpg.framework.commands.Commands;
+import co.aegisrpg.framework.features.Features;
+import co.aegisrpg.models.nerd.Nerd;
+import co.aegisrpg.models.nerd.Rank;
+import co.aegisrpg.utils.*;
 import co.aegisrpg.utils.WorldGuardFlagUtils.CustomFlags;
+import co.aegisrpg.utils.PlayerUtils.OnlinePlayers;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+import com.lishid.openinv.IOpenInv;
+import com.onarandombox.MultiverseCore.MultiverseCore;
+import com.onarandombox.multiverseinventories.MultiverseInventories;
+import it.sauronsoftware.cron4j.Scheduler;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import me.arcaniax.hdb.api.HeadDatabaseAPI;
+import me.lucko.spark.api.Spark;
+import net.luckperms.api.LuckPerms;
 import net.md_5.bungee.api.ChatColor;
+import nl.pim16aap2.bigDoors.BigDoors;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.objenesis.ObjenesisStd;
 
@@ -27,6 +46,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
+
+import static co.aegisrpg.framework.commands.Commands.commands;
+import static com.comphenix.protocol.ProtocolLib.protocolManager;
 
 public final class Shield extends JavaPlugin {
 
@@ -189,11 +211,144 @@ public final class Shield extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        new Timer("Enable", () -> {
+            new Timer(" Cache Usernames", () -> OnlinePlayers.getAll().forEach(Name::of));
+            new Timer(" Config", this::setupConfig);
+            new Timer(" Hooks", this::hooks);
+            new Timer(" Databases", this::databases);
+            new Timer(" Features", () -> {
+                features = new Features(this, "co.aegisrpg.features");
+                features.register(Chat.class, Discord.class); // prioritize
+                features.registerAll();
+            });
+            new Timer(" Commands", () -> {
+                commands = new Commands(this, "co.aegisrpg.features");
+                commands.registerAll();
+            });
+        });
     }
 
+    // @formatter:off
     @Override
+    @SuppressWarnings({"Convert2MethodRef", "CodeBlock2Expr"})
     public void onDisable() {
+        List<Runnable> tasks = List.of(
+                () -> { broadcastReload(); },
+                () -> { PlayerUtils.runCommandAsConsole("save-all"); },
+                () -> { if (cron.isStarted()) cron.stop(); },
+                () -> { if (protocolManager != null) protocolManager.removePacketListeners(this); },
+                () -> { if (commands != null) commands.unregisterAll(); },
+                () -> { if (features != null) features.unregisterExcept(Discord.class, Chat.class); },
+                () -> { if (features != null) features.unregister(Discord.class, Chat.class); },
+                () -> { Bukkit.getServicesManager().unregisterAll(this); },
+                () -> { MySQLPersistence.shutdown(); },
+//                () -> { GoogleUtils.shutdown(); },
+                () -> { LuckPermsUtils.shutdown(); },
+                () -> { shutdownDatabases(); },
+                () -> { if (api != null) api.shutdown(); }
+        );
 
+        for (Runnable task : tasks)
+            try {
+                task.run();
+            } catch (Throwable ex) {
+                ex.printStackTrace();
+            }
     }
+
+    public void broadcastReload() {
+        if (luckPerms == null)
+            return;
+
+        Rank.getOnlineStaff().stream()
+                .map(Nerd::getPlayer)
+                .forEach(player -> {
+                    GeoIP geoip = new GeoIPService().get(player);
+                    String message = " &c&l ! &c&l! &eReloading Nexus &c&l! &c&l!";
+                    if (GeoIP.exists(geoip))
+                        PlayerUtils.send(player, "&7 " + geoip.getCurrentTimeShort() + message);
+                    else
+                        PlayerUtils.send(player, message);
+                });
+    }
+
+    private void setupConfig() {
+        if (!Shield.getInstance().getDataFolder().exists())
+            Shield.getInstance().getDataFolder().mkdir();
+
+        FileConfiguration config = getInstance().getConfig();
+
+        addConfigDefault("env", "dev");
+
+        config.options().copyDefaults(true);
+        saveConfig();
+    }
+
+    public void addConfigDefault(String path, Object value) {
+        FileConfiguration config = getInstance().getConfig();
+        config.addDefault(path, value);
+
+        config.options().copyDefaults(true);
+        saveConfig();
+    }
+
+    @Getter
+    private static SignMenuFactory signMenuFactory;
+    @Getter
+    private static ProtocolManager protocolManager;
+    @Getter
+    private static MultiverseCore multiverseCore;
+    @Getter
+    private static MultiverseInventories multiverseInventories;
+    @Getter
+    private static BuycraftPluginBase buycraft;
+    @Getter
+    private static LuckPerms luckPerms = null;
+    @Getter
+    private static Spark spark = null;
+    @Getter
+    private static IOpenInv openInv = null;
+    @Getter
+    private static BigDoors bigDoors = null;
+
+    @Getter
+    // http://www.sauronsoftware.it/projects/cron4j/manual.php
+    private static final Scheduler cron = new Scheduler();
+
+    private void databases() {
+//		new Timer(" MySQL", LWCProtectionService::new);
+        new Timer(" MongoDB", () -> {
+            new HomeService();
+            Tasks.wait(5, () -> MongoService.loadServices("gg.projecteden.nexus.models"));
+        });
+    }
+
+    @SneakyThrows
+    private void shutdownDatabases() {
+        for (Class<? extends MongoService> service : MongoService.getServices())
+            if (Utils.canEnable(service)) {
+                final MongoService<?> serviceInstance = service.getConstructor().newInstance();
+                // TODO Maybe per-service setting to save on shutdown? This will save way too many things
+//				serviceInstance.saveCacheSync();
+                serviceInstance.clearCache();
+            }
+    }
+
+    private void hooks() {
+        signMenuFactory = new SignMenuFactory(this);
+        protocolManager = ProtocolLibrary.getProtocolManager();
+        multiverseCore = (MultiverseCore) Bukkit.getPluginManager().getPlugin("Multiverse-Core");
+        multiverseInventories = (MultiverseInventories) Bukkit.getPluginManager().getPlugin("Multiverse-Inventories");
+        buycraft = (BuycraftPluginBase) Bukkit.getServer().getPluginManager().getPlugin("BuycraftX");
+        openInv = (IOpenInv) Bukkit.getPluginManager().getPlugin("OpenInv");
+        bigDoors = BigDoors.get().getPlugin();
+        cron.start();
+        RegisteredServiceProvider<LuckPerms> lpProvider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+        if (lpProvider != null)
+            luckPerms = lpProvider.getProvider();
+        RegisteredServiceProvider<Spark> sparkProvider = Bukkit.getServicesManager().getRegistration(Spark.class);
+        if (sparkProvider != null)
+            spark = sparkProvider.getProvider();
+    }
+
 }
