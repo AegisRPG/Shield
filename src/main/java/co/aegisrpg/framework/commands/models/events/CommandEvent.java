@@ -1,6 +1,8 @@
 package co.aegisrpg.framework.commands.models.events;
 
 import co.aegisrpg.api.common.exceptions.AegisException;
+import co.aegisrpg.framework.commands.models.CustomCommand;
+import co.aegisrpg.framework.exceptions.preconfigured.MustBeIngameException;
 import co.aegisrpg.utils.JsonBuilder;
 import co.aegisrpg.utils.PlayerUtils;
 import lombok.Data;

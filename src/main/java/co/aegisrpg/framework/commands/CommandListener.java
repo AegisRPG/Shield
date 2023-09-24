@@ -1,5 +1,7 @@
 package co.aegisrpg.framework.commands;
 
+import co.aegisrpg.framework.commands.models.CustomCommand;
+import co.aegisrpg.framework.commands.models.events.CommandTabEvent;
 import co.aegisrpg.utils.Nullables;
 import co.aegisrpg.utils.PlayerUtils;
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;

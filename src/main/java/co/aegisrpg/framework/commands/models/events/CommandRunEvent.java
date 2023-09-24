@@ -3,8 +3,10 @@ package co.aegisrpg.framework.commands.models.events;
 import co.aegisrpg.Shield;
 import co.aegisrpg.api.common.exceptions.AegisException;
 import co.aegisrpg.framework.commands.Commands;
+import co.aegisrpg.framework.commands.models.CustomCommand;
 import co.aegisrpg.framework.commands.models.annotations.Description;
 import co.aegisrpg.framework.commands.models.annotations.Path;
+import co.aegisrpg.framework.exceptions.ShieldException;
 import co.aegisrpg.framework.exceptions.preconfigured.MissingArgumentException;
 import co.aegisrpg.utils.JsonBuilder;
 import lombok.Data;
@@ -57,12 +59,12 @@ public class CommandRunEvent extends CommandEvent {
             return;
         }
 
-        if (ex.getCause() != null && ex.getCause() instanceof AegisException shieldException) {
+        if (ex.getCause() != null && ex.getCause() instanceof ShieldException shieldException) {
             reply(new JsonBuilder(PREFIX + "&c").next(shieldException.getJson()));
             return;
         }
 
-        if (ex instanceof AegisException shieldException) {
+        if (ex instanceof ShieldException shieldException) {
             reply(new JsonBuilder(PREFIX + "&c").next(shieldException.getJson()));
             return;
         }
@@ -91,4 +93,3 @@ public class CommandRunEvent extends CommandEvent {
     }
 
 }
-

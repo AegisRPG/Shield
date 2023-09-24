@@ -1,7 +1,25 @@
 package co.aegisrpg.framework.commands.models;
 
+import co.aegisrpg.Shield;
+import co.aegisrpg.api.common.annotations.Async;
+import co.aegisrpg.api.common.annotations.Disabled;
+import co.aegisrpg.api.common.annotations.Environments;
+import co.aegisrpg.api.mongodb.interfaces.PlayerOwnedObject;
+import co.aegisrpg.features.menus.MenuUtils;
+import co.aegisrpg.framework.commands.Commands;
+import co.aegisrpg.framework.commands.models.annotations.*;
+import co.aegisrpg.framework.commands.models.cooldown.CooldownService;
+import co.aegisrpg.framework.commands.models.events.CommandEvent;
 import co.aegisrpg.framework.commands.models.events.CommandRunEvent;
+import co.aegisrpg.framework.commands.models.events.CommandTabEvent;
+import co.aegisrpg.framework.exceptions.ShieldException;
+import co.aegisrpg.framework.exceptions.postconfigured.CommandCooldownException;
+import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
+import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotFoundException;
+import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotOnlineException;
+import co.aegisrpg.framework.exceptions.preconfigured.MissingArgumentException;
 import co.aegisrpg.framework.exceptions.preconfigured.NoPermissionException;
+import co.aegisrpg.utils.*;
 import lombok.SneakyThrows;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.command.CommandSender;
@@ -18,6 +36,20 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static co.aegisrpg.api.common.utils.Nullables.isNullOrEmpty;
+import static co.aegisrpg.api.common.utils.ReflectionUtils.methodsAnnotatedWith;
+import static co.aegisrpg.api.common.utils.StringUtils.asParsableDecimal;
+import static co.aegisrpg.api.common.utils.StringUtils.camelCase;
+import static co.aegisrpg.api.common.utils.UUIDUtils.UUID0;
+import static co.aegisrpg.api.common.utils.Utils.getDefaultPrimitiveValue;
+import static co.aegisrpg.api.common.utils.Utils.isBoolean;
+import static co.aegisrpg.framework.commands.models.CustomCommand.getSwitchPattern;
+import static co.aegisrpg.framework.commands.models.PathParser.getLiteralWords;
+import static co.aegisrpg.framework.commands.models.PathParser.getPathString;
+import static co.aegisrpg.utils.StringUtils.COMMA_SPLIT_REGEX;
+import static co.aegisrpg.utils.Utils.getMaxValue;
+import static co.aegisrpg.utils.Utils.getMinValue;
 
 @SuppressWarnings("unused")
 public abstract class ICustomCommand {
@@ -59,7 +91,7 @@ public abstract class ICustomCommand {
             if (annotation instanceof Aliases) {
                 for (String alias : ((Aliases) annotation).value()) {
                     if (!Pattern.compile("[a-zA-Z\\d_-]+").matcher(alias).matches()) {
-                        Nexus.warn("Alias invalid: " + getName() + "Command.java / " + alias);
+                        Shield.warn("Alias invalid: " + getName() + "Command.java / " + alias);
                         continue;
                     }
 
@@ -104,7 +136,7 @@ public abstract class ICustomCommand {
 
         Confirm confirm = method.getAnnotation(Confirm.class);
         if (event.getSender() instanceof Player && confirm != null) {
-            ConfirmationMenu.builder()
+            MenuUtils.ConfirmationMenu.builder()
                     .onConfirm(e -> run.run())
                     .title(FontUtils.getMenuTexture("禧", 3) + confirm.title())
                     .open(event.getPlayer());
@@ -282,14 +314,14 @@ public abstract class ICustomCommand {
                 else if (converter.getParameterCount() == 2)
                     return converter.invoke(command, value, context);
                 else
-                    throw new NexusException("Unknown converter parameters in " + converter.getName());
+                    throw new ShieldException("Unknown converter parameters in " + converter.getName());
             } else if (type.isEnum()) {
                 return convertToEnum(value, (Class<? extends Enum<?>>) type);
             } else if (PlayerOwnedObject.class.isAssignableFrom(type)) {
                 return convertToPlayerOwnedObject(value, (Class<? extends PlayerOwnedObject>) type);
             }
         } catch (InvocationTargetException ex) {
-            if (Nexus.isDebug())
+            if (Shield.isDebug())
                 ex.printStackTrace();
             if (required)
                 if (!isNullOrEmpty(value) && conversionExceptions.contains(ex.getCause().getClass()))
@@ -421,7 +453,7 @@ public abstract class ICustomCommand {
                 .filter(method -> method.getAnnotation(Disabled.class) == null)
                 .filter(method -> {
                     final Environments envs = method.getAnnotation(Environments.class);
-                    return envs == null || ArrayUtils.contains(envs.value(), Nexus.getEnv());
+                    return envs == null || ArrayUtils.contains(envs.value(), Shield.getEnv());
                 })
                 .filter(method -> hasPermission(event.getSender(), method))
                 .collect(Collectors.toList());
