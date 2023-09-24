@@ -6,6 +6,7 @@ import co.aegisrpg.features.Tab.Presence;
 import co.aegisrpg.api.mongodb.models.nickname.Nickname;
 import co.aegisrpg.api.mongodb.models.nickname.NicknameService;
 import co.aegisrpg.features.afk.AFK;
+import co.aegisrpg.models.mail.Mailer.Mail;
 import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotOnlineException;
 import co.aegisrpg.models.nerd.Nerd;
 import co.aegisrpg.models.nerd.Rank;
