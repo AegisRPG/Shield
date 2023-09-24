@@ -1,6 +1,7 @@
 package co.aegisrpg.utils.worldgroup;
 
 import co.aegisrpg.framework.annotations.Icon;
+import co.aegisrpg.models.warps.WarpType;
 import co.aegisrpg.utils.LuckPermsUtils;
 import co.aegisrpg.utils.StringUtils;
 import co.aegisrpg.models.emoji.EmojiUser.Emoji;

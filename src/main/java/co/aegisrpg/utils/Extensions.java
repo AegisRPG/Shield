@@ -1,6 +1,7 @@
 package co.aegisrpg.utils;
 
 import co.aegisrpg.features.afk.AFK;
+import co.aegisrpg.features.vanish.Vanish;
 import co.aegisrpg.models.nerd.Rank;
 import org.bukkit.entity.Player;
 
