@@ -3,6 +3,7 @@ package co.aegisrpg.framework.persistence.mongodb;
 import co.aegisrpg.Shield;
 import co.aegisrpg.api.common.utils.TimeUtils.TickTime;
 import co.aegisrpg.api.interfaces.DatabaseObject;
+import co.aegisrpg.models.mail.Mailer;
 import co.aegisrpg.utils.Tasks;
 import co.aegisrpg.utils.Tasks.QueuedTask;
 import dev.morphia.mapping.MappingException;
