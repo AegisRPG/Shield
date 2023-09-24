@@ -6,8 +6,12 @@ import co.aegisrpg.api.common.utils.Env;
 import co.aegisrpg.api.common.utils.ReflectionUtils;
 import co.aegisrpg.api.common.utils.Utils;
 import co.aegisrpg.api.mongodb.MongoService;
+import co.aegisrpg.features.listeners.common.TemporaryListener;
+import co.aegisrpg.features.menus.api.SignMenuFactory;
 import co.aegisrpg.framework.commands.Commands;
 import co.aegisrpg.framework.features.Features;
+import co.aegisrpg.models.geoip.GeoIP;
+import co.aegisrpg.models.geoip.GeoIPService;
 import co.aegisrpg.models.nerd.Nerd;
 import co.aegisrpg.models.nerd.Rank;
 import co.aegisrpg.utils.*;
@@ -47,17 +51,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
-import static co.aegisrpg.framework.commands.Commands.commands;
-import static com.comphenix.protocol.ProtocolLib.protocolManager;
-
 public final class Shield extends JavaPlugin {
 
     // TODO: Uncomment when features/commands area is created
 
-//    @Getter
-//    private Commands commands;
-//    @Getter
-//    private Features features;
+    @Getter
+    private Commands commands;
+    @Getter
+    private Features features;
     private static Shield instance;
     @Getter
     private static Thread thread;
