@@ -16,6 +16,8 @@
 
 package co.aegisrpg.features.menus.api.opener;
 
+import co.aegisrpg.features.menus.api.InventoryManager;
+import co.aegisrpg.features.menus.api.SmartInventory;
 import com.google.common.base.Preconditions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

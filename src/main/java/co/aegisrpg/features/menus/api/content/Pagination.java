@@ -16,6 +16,8 @@
 
 package co.aegisrpg.features.menus.api.content;
 
+import co.aegisrpg.features.menus.api.ClickableItem;
+
 import java.util.Arrays;
 
 /**
