@@ -1,20 +1,23 @@
 package co.aegisrpg.utils;
 
 import co.aegisrpg.Shield;
-import co.aegisrpg.api.common.utils.RandomUtils;
-import co.aegisrpg.api.mongodb.models.nerd.Nerd;
-import co.aegisrpg.api.mongodb.models.nerd.NerdService;
 import co.aegisrpg.api.mongodb.models.nickname.Nickname;
 import co.aegisrpg.api.mongodb.models.nickname.NicknameService;
+import co.aegisrpg.features.vanish.*;
+import co.aegisrpg.models.mail.Mailer.Mail;
 import co.aegisrpg.features.commands.staff.WorldGuardEditCommand;
 import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
 import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotFoundException;
+import co.aegisrpg.api.common.utils.Utils.MinMaxResult;
 import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotOnlineException;
 import co.aegisrpg.framework.interfaces.PlayerOwnedObject;
-import co.aegisrpg.api.common.utils.Utils.MinMaxResult;
-import co.aegisrpg.models.nerd.Rank;
+import co.aegisrpg.models.afk.AFKUserService;
+import co.aegisrpg.models.mail.MailerService;
+import co.aegisrpg.models.nerd.*;
 import co.aegisrpg.utils.worldgroup.SubWorldGroup;
-import com.onarandombox.multiverseinventories.WorldGroup;
+import co.aegisrpg.utils.worldgroup.WorldGroup;
+import com.gmail.nossr50.mcmmo.kyori.adventure.identity.Identified;
+import com.gmail.nossr50.mcmmo.kyori.adventure.identity.Identity;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import de.tr7zw.nbtapi.NBTContainer;
 import de.tr7zw.nbtapi.NBTItem;
@@ -27,8 +30,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import net.dv8tion.jda.annotations.ReplaceWith;
-import net.kyori.adventure.identity.Identified;
-import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.ComponentLike;
 import org.bukkit.*;
 import org.bukkit.advancement.Advancement;
@@ -65,7 +66,7 @@ public class PlayerUtils {
 
     public enum Dev implements PlayerOwnedObject {
         CYN("1d70383f-21ba-4b8b-a0b4-6c327fbdade1"),
-        HUNTER("5673ca1e-a662-422a-a9d1-4013eaefaff7"),
+        JACKAL("37ea9878-7d8d-4620-b20e-15d566b18248"),
         ;
 
         @Getter
@@ -945,7 +946,7 @@ public class PlayerUtils {
         List<ItemStack> finalItems = new ArrayList<>(items);
         finalItems.removeIf(Nullables::isNullOrAir);
         finalItems.removeIf(itemStack -> itemStack.getAmount() == 0);
-        if (!Nullables.isNullOrEmpty(nbt)) {
+        if (!isNullOrEmpty(nbt)) {
             finalItems.clear();
             NBTContainer nbtContainer = new NBTContainer(nbt);
             for (ItemStack item : new ArrayList<>(items)) {
