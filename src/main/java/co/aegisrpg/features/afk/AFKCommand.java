@@ -2,6 +2,8 @@ package co.aegisrpg.features.afk;
 
 import co.aegisrpg.api.common.annotations.Async;
 import co.aegisrpg.api.common.utils.TimeUtils.TickTime;
+import co.aegisrpg.api.mongodb.models.nickname.Nickname;
+import co.aegisrpg.features.chat.events.MinecraftChatEvent;
 import co.aegisrpg.framework.commands.models.CustomCommand;
 import co.aegisrpg.framework.commands.models.annotations.Aliases;
 import co.aegisrpg.framework.commands.models.annotations.Cooldown;
@@ -11,6 +13,8 @@ import co.aegisrpg.framework.commands.models.events.CommandEvent;
 import co.aegisrpg.models.afk.AFKUser;
 import co.aegisrpg.models.afk.AFKUserService;
 import co.aegisrpg.models.afk.AFKUser.AFKSetting;
+import co.aegisrpg.models.chat.Chatter;
+import co.aegisrpg.models.chat.PrivateChannel;
 import co.aegisrpg.utils.JsonBuilder;
 import co.aegisrpg.utils.PlayerUtils;
 import co.aegisrpg.utils.Tasks;
