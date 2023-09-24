@@ -1,5 +1,6 @@
 package co.aegisrpg.models.clientside;
 
+import co.aegisrpg.features.afk.AFK;
 import co.aegisrpg.features.clientside.models.IClientSideEntity;
 import co.aegisrpg.framework.interfaces.PlayerOwnedObject;
 import co.aegisrpg.framework.persistence.serializer.mongodb.ConcurrentLinkedQueueConverter;
