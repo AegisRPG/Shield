@@ -98,7 +98,7 @@ public class IOUtils {
     }
 
     @SneakyThrows
-    public static YamlConfiguration getNexusConfig(String path) {
+    public static YamlConfiguration getAegisConfig(String path) {
         return YamlConfiguration.loadConfiguration(getPluginFile(path));
     }
 
