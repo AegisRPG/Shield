@@ -2,10 +2,13 @@ package co.aegisrpg.framework.interfaces;
 
 import co.aegisrpg.Shield;
 import co.aegisrpg.api.common.utils.Tasks;
-import co.aegisrpg.api.mongodb.models.nerd.Nerd;
+import co.aegisrpg.features.Tab.Presence;
 import co.aegisrpg.api.mongodb.models.nickname.Nickname;
 import co.aegisrpg.api.mongodb.models.nickname.NicknameService;
+import co.aegisrpg.features.afk.AFK;
 import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotOnlineException;
+import co.aegisrpg.models.nerd.Nerd;
+import co.aegisrpg.models.nerd.Rank;
 import co.aegisrpg.utils.AdventureUtils;
 import co.aegisrpg.utils.Distance;
 import co.aegisrpg.utils.JsonBuilder;

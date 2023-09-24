@@ -1,8 +1,7 @@
 package co.aegisrpg.utils;
 
-import gg.projecteden.nexus.features.afk.AFK;
-import gg.projecteden.nexus.features.vanish.Vanish;
-import gg.projecteden.nexus.models.nerd.Rank;
+import co.aegisrpg.features.afk.AFK;
+import co.aegisrpg.models.nerd.Rank;
 import org.bukkit.entity.Player;
 
 public class Extensions {
