@@ -2,19 +2,24 @@ package co.aegisrpg.framework.commands.models;
 
 import co.aegisrpg.api.common.utils.UUIDUtils;
 import co.aegisrpg.api.mongodb.interfaces.PlayerOwnedObject;
-import co.aegisrpg.framework.commands.models.annotations.ConverterFor;
-import co.aegisrpg.framework.commands.models.annotations.Fallback;
+import co.aegisrpg.api.mongodb.models.nerd.Nerd;
+import co.aegisrpg.api.mongodb.models.nickname.Nickname;
+import co.aegisrpg.features.commands.staff.MultiCommandCommand;
+import co.aegisrpg.framework.commands.models.annotations.*;
 import co.aegisrpg.framework.commands.models.events.CommandEvent;
+import co.aegisrpg.api.common.utils.TimeUtils.Timespan;
 import co.aegisrpg.framework.commands.models.events.CommandRunEvent;
 import co.aegisrpg.framework.exceptions.postconfigured.InvalidInputException;
 import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotFoundException;
 import co.aegisrpg.framework.exceptions.postconfigured.PlayerNotOnlineException;
 import co.aegisrpg.framework.exceptions.preconfigured.*;
+import co.aegisrpg.models.nerd.Rank;
+import co.aegisrpg.utils.SerializationUtils.Json;
 import co.aegisrpg.framework.persistence.mongodb.MongoPlayerService;
+import co.aegisrpg.models.nerd.NerdService;
 import co.aegisrpg.utils.*;
 import co.aegisrpg.utils.worldgroup.SubWorldGroup;
 import co.aegisrpg.utils.worldgroup.WorldGroup;
-import com.gmail.nossr50.datatypes.skills.subskills.interfaces.Rank;
 import com.google.common.base.Strings;
 import gg.projecteden.parchment.HasLocation;
 import gg.projecteden.parchment.OptionalLocation;
@@ -52,6 +57,8 @@ import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import static co.aegisrpg.api.common.utils.TimeUtils.parseDate;
+import static co.aegisrpg.api.common.utils.TimeUtils.parseDateTime;
 import static co.aegisrpg.utils.Distance.distance;
 import static co.aegisrpg.utils.Nullables.isNullOrAir;
 import static co.aegisrpg.utils.StringUtils.an;
@@ -804,7 +811,7 @@ public abstract class CustomCommand extends ICustomCommand {
 
 	@TabCompleterFor(Player.class)
 	public List<String> tabCompletePlayer(String filter) {
-		return OnlinePlayers.getAll().stream()
+		return PlayerUtils.OnlinePlayers.getAll().stream()
 				.filter(player -> PlayerUtils.canSee(player(), player))
 				.map(Nickname::of)
 				.filter(name -> name.toLowerCase().startsWith(filter.replaceFirst("[pP]:", "").toLowerCase()))
