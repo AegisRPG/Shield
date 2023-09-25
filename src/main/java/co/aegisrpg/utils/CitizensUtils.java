@@ -1,9 +1,10 @@
 package co.aegisrpg.utils;
 
 import co.aegisrpg.api.common.utils.EnumUtils;
-import co.aegisrpg.api.mongodb.models.nerd.Nerd;
 import co.aegisrpg.api.mongodb.models.nickname.Nickname;
 import co.aegisrpg.hooks.Hook;
+import co.aegisrpg.models.nerd.Nerd;
+import co.aegisrpg.models.nerd.Rank;
 import com.gmail.nossr50.worldguard.WorldGuardUtils;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import gg.projecteden.api.interfaces.HasUniqueId;

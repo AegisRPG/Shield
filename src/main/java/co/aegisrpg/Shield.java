@@ -6,6 +6,7 @@ import co.aegisrpg.api.common.utils.Env;
 import co.aegisrpg.api.common.utils.ReflectionUtils;
 import co.aegisrpg.api.common.utils.Utils;
 import co.aegisrpg.api.mongodb.MongoService;
+import co.aegisrpg.features.chat.Chat;
 import co.aegisrpg.features.listeners.common.TemporaryListener;
 import co.aegisrpg.features.menus.api.SignMenuFactory;
 import co.aegisrpg.framework.commands.Commands;
