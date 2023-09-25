@@ -1,0 +1,142 @@
+package co.aegisrpg.features.mobheads;
+
+import co.aegisrpg.features.menus.api.ClickableItem;
+import co.aegisrpg.features.menus.api.annotations.Title;
+import co.aegisrpg.features.menus.api.content.InventoryContents;
+import co.aegisrpg.features.menus.api.content.InventoryProvider;
+import co.aegisrpg.features.mobheads.common.MobHead;
+import co.aegisrpg.features.mobheads.common.MobHeadVariant;
+import co.aegisrpg.models.mobheads.MobHeadUser;
+import co.aegisrpg.models.mobheads.MobHeadUserService;
+import co.aegisrpg.utils.ItemBuilder;
+import co.aegisrpg.api.common.utils.EnumUtils.IterableEnum;
+import co.aegisrpg.utils.StringUtils;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
+
+@Title("Mob Heads")
+public class MobHeadUserMenu extends InventoryProvider {
+	private final MobHeadUserService service = new MobHeadUserService();
+
+	private KillsFilterType killsFilter = KillsFilterType.OFF;
+	private HeadsFilterType headsFilter = HeadsFilterType.OFF;
+
+	@Override
+	public void init() {
+		final MobHeadUser user = service.get(viewer);
+
+		addCloseItem();
+
+		List<ClickableItem> items = new ArrayList<>();
+
+		Consumer<MobHead> addItem = mobHead -> {
+			if (filter(user, mobHead))
+				return;
+
+			final int kills = user.get(mobHead).getKills();
+			final int heads = user.get(mobHead).getHeads();
+			ItemStack skull = mobHead.getNamedSkull();
+
+			if (mobHead.getType() == MobHeadType.PLAYER)
+				skull = new ItemStack(Material.PLAYER_HEAD);
+
+			if (skull == null)
+				skull = new ItemStack(Material.BARRIER);
+
+			final ItemBuilder builder = new ItemBuilder(skull)
+				.lore("&3Kills: " + (kills > 0 ? "&a" : "&c") + kills)
+				.lore("&3Heads: " + (heads > 0 ? "&a" : "&c") + heads);
+
+			items.add(ClickableItem.empty(builder.build()));
+		};
+
+		for (MobHeadType mobHeadType : MobHeadType.values()) {
+			if (mobHeadType.hasVariants()) {
+				for (MobHeadVariant variant : mobHeadType.getVariants())
+					addItem.accept(variant);
+			} else
+				addItem.accept(mobHeadType);
+		}
+
+		paginate(items);
+
+		formatKillsFilter(viewer, contents);
+		formatHeadsFilter(viewer, contents);
+	}
+
+	private boolean filter(MobHeadUser user, MobHead mobHead) {
+		if (mobHead.getType().getChance() == 0)
+			return true;
+
+		if (killsFilter.getFilter() != null)
+			if (!killsFilter.getFilter().test(user, mobHead))
+				return true;
+
+		if (headsFilter.getFilter() != null)
+			if (!headsFilter.getFilter().test(user, mobHead))
+				return true;
+		return false;
+	}
+
+	private void formatKillsFilter(Player player, InventoryContents contents) {
+		final ItemBuilder item = getFilterItem(Material.NETHERITE_SWORD, killsFilter);
+		contents.set(5, 3, ClickableItem.of(item.build(), e -> {
+			killsFilter = killsFilter.nextWithLoop();
+			open(player, contents.pagination().getPage());
+		}));
+	}
+
+	private void formatHeadsFilter(Player player, InventoryContents contents) {
+		final ItemBuilder item = getFilterItem(Material.HOPPER, headsFilter);
+		contents.set(5, 5, ClickableItem.of(item.build(), e -> {
+			headsFilter = headsFilter.nextWithLoop();
+			open(player, contents.pagination().getPage());
+		}));
+	}
+
+	private ItemBuilder getFilterItem(Material zombieHead, IterableEnum iterableEnum) {
+		return new ItemBuilder(zombieHead).name("&6Filter by:")
+			.lore("&7⬇ " + StringUtils.camelCase(iterableEnum.previousWithLoop().name()))
+			.lore("&e⬇ " + StringUtils.camelCase(iterableEnum.name()))
+			.lore("&7⬇ " + StringUtils.camelCase(iterableEnum.nextWithLoop().name()));
+	}
+
+	private interface FilterType extends IterableEnum {
+
+		String name();
+
+		BiPredicate<MobHeadUser, MobHead> getFilter();
+
+	}
+
+	@Getter
+	@AllArgsConstructor
+	private enum KillsFilterType implements FilterType {
+		OFF(null),
+		NO_KILLS((user, mobHead) -> user.get(mobHead).getKills() == 0),
+		HAS_KILLS((user, mobHead) -> user.get(mobHead).getKills() > 0),
+		;
+
+		private final BiPredicate<MobHeadUser, MobHead> filter;
+	}
+
+	@Getter
+	@AllArgsConstructor
+	private enum HeadsFilterType implements FilterType {
+		OFF(null),
+		NO_HEADS((user, mobHead) -> user.get(mobHead).getHeads() == 0),
+		HAS_HEADS((user, mobHead) -> user.get(mobHead).getHeads() > 0),
+		;
+
+		private final BiPredicate<MobHeadUser, MobHead> filter;
+	}
+
+}
