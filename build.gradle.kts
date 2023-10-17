@@ -102,7 +102,7 @@ dependencies {
     compileOnly(files("libs/nuvotifier-universal-2.3.4.jar"))
 }
 
-group = "co.AegisRPG"
+group = "co.Odisea"
 description = "Shield"
 version = "1.0"
 
